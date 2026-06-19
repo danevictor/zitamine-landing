@@ -1214,6 +1214,16 @@
       .objective-tabs { gap: 8px; }
       .objective-tab { padding: 8px 14px; font-size: 13px; }
       .protocol-card { min-width: 260px; }
+
+      /* FIX 1: Hero image — centrare pe mobile, nu mai e lipită de dreapta */
+      .hero-image {
+        padding: 0 16px;
+      }
+      .hero-image img {
+        max-width: 85vw !important;
+        margin: 0 auto;
+        display: block;
+      }
     }
 
     /* Google Review badge */
@@ -1432,30 +1442,34 @@
       }
       .objective-tab.active i { color: var(--navy); }
 
-      /* 2. Horizontal Scrollable Packages Grid */
+      /* FIX 3: Stacked vertical cards on mobile instead of horizontal carousel */
       .packages-grid.active {
         display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
+        flex-direction: column;
         gap: 16px;
         padding-bottom: 24px;
-        margin: 0 -16px; /* bleed to edges */
-        padding-left: 16px;
-        padding-right: 32px; /* Extra padding at end so last card isn't stuck */
-        align-items: flex-start; /* Do not stretch cards vertically! Let them take natural height */
+        align-items: stretch;
       }
-      .packages-grid.active::-webkit-scrollbar { display: none; }
       
       .package-card {
-        flex: 0 0 82vw; /* Show 82% of the viewport width, strongly revealing the next card */
-        scroll-snap-align: start; /* Align to the left edge so the gap is on the right */
-        max-width: 340px;
-        height: auto; /* Remove 100% height stretching */
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
       }
-      
-      /* Make sure CTA button doesn't float far down if card stretches slightly */
+
+      /* Compact card: reduce padding for tighter mobile layout */
+      .package-body-top {
+        padding: 16px 18px 12px;
+      }
+      .bundle-items-wrap {
+        padding: 14px 18px;
+      }
+      .package-body-bottom {
+        padding: 14px 18px 18px;
+      }
+
+      /* Make sure CTA button doesn't float far down */
       .package-cta {
         margin-top: 16px !important;
       }
@@ -1463,17 +1477,19 @@
     }
 
   
-    /* ========== CTA BUTTON & PRICE ROW SIDE-BY-SIDE (MOBILE) ========== */
+    /* ========== CTA BUTTON & PRICE — STACKED LAYOUT (MOBILE) ========== */
     @media (max-width: 767px) {
+      /* FIX 2+3: Price on left, CTA full-width below, subtitle visible */
       .package-footer {
         display: flex;
+        flex-direction: row;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
       }
       .package-footer > .d-flex {
         margin-bottom: 0 !important;
-        flex: 1;
+        flex: 0 0 auto;
       }
       .package-price-row {
         margin-bottom: 2px !important;
@@ -1483,12 +1499,13 @@
       }
       .package-cta {
         margin-top: 0 !important;
-        flex: 0 0 auto;
+        flex: 1 1 auto;
       }
       .btn-subscribe-trigger {
-        padding: 10px 14px !important;
-        min-height: 44px !important;
-        border-radius: 8px !important;
+        padding: 12px 16px !important;
+        min-height: 48px !important;
+        border-radius: 12px !important;
+        width: 100%;
       }
       .btn-subscribe-trigger i {
         font-size: 16px !important;
@@ -1496,8 +1513,12 @@
       .btn-subscribe-trigger > div {
         font-size: 13px !important;
       }
+      /* FIX 2: Show subtitle on mobile — now the text is clear enough */
       .btn-sub-note {
-        display: none !important; /* Hide subtext on mobile to fit button next to price */
+        display: block !important;
+        font-size: 9px !important;
+        opacity: 0.8;
+        margin-top: 1px;
       }
       
       /* Prominent crossed-out price */
@@ -1633,7 +1654,7 @@
 </div>
 <div class="col-lg-6 text-center scroll-reveal">
 <div class="hero-image">
-<img alt="Cutia Zitamine cu plicuri de vitamine personalizate" src="assets/cutie-zitamine.jpg" style="max-width: 520px; border-radius: 20px;"/>
+<img alt="Cutia Zitamine cu plicuri de vitamine personalizate" src="cutie-zitamine.jpg" style="max-width: 520px; border-radius: 20px;"/>
 </div>
 </div>
 </div>
@@ -1645,7 +1666,7 @@
 <div class="row align-items-center g-5">
 <div class="col-lg-6 d-none d-lg-block scroll-reveal order-2 order-lg-1">
 <div class="plic-img-wrap">
-<img alt="Plic zilnic Zitamine" class="plic-img" src="assets/plic_zitamine.png"/>
+<img alt="Plic zilnic Zitamine" class="plic-img" src="plic_zitamine.png"/>
 </div>
 </div>
 <div class="col-lg-6 scroll-reveal order-1 order-lg-2">
@@ -1757,7 +1778,7 @@
 <div class="package-cta">
 <button class="btn-subscribe-trigger" onclick="openSubModal(this)">
 <i class="bi bi-arrow-repeat"></i>
-<div>Pune pe Repeat<span class="btn-sub-note">economisești bani și timp</span></div>
+<div>Pune pe Repeat<span class="btn-sub-note">Primești automat lunar cu -15%</span></div>
 </button>
 </div>
 </div>
@@ -3227,15 +3248,15 @@
           Suntem alegerea principală de sănătate și wellness pentru programele de loialitate și beneficii ale partenerilor noștri.
         </p>
 <div class="d-flex gap-4 justify-content-center flex-wrap align-items-center" style="max-width: 950px; margin: 0 auto;">
-  <img src="assets/esx%20logo%202.svg" alt="ESX" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
-  <img src="assets/Enroush_Logo%202.png" alt="Enroush" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
-  <img src="assets/Banca_Transilvania_Logo.svg.png" alt="Banca Transilvania" style="height: 45px; object-fit: contain; mix-blend-mode: multiply;">
-  <img src="assets/edenred.png" alt="Edenred" style="height: 40px; object-fit: contain; mix-blend-mode: multiply;">
-  <img src="assets/logo%20raifaissen.png" alt="Raiffeisen Bank" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
-  <img src="assets/sanopass%20logo.png" alt="Sanopass" style="height: 40px; object-fit: contain; mix-blend-mode: multiply;">
-  <img src="assets/nn%20logo%202.svg" alt="NN" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
-  <img src="assets/mastercard%20logo%202.png" alt="Mastercard" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
-  <img src="assets/vodafone.png" alt="Vodafone" style="height: 40px; object-fit: contain; mix-blend-mode: multiply;">
+  <img src="../esx%20logo%202.svg" alt="ESX" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
+  <img src="../Enroush_Logo%202.png" alt="Enroush" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
+  <img src="../logo/Banca_Transilvania_Logo.svg.png" alt="Banca Transilvania" style="height: 45px; object-fit: contain; mix-blend-mode: multiply;">
+  <img src="../logo/edenred.png" alt="Edenred" style="height: 40px; object-fit: contain; mix-blend-mode: multiply;">
+  <img src="../logo%20raifaissen.png" alt="Raiffeisen Bank" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
+  <img src="../logo/sanopass logo.png" alt="Sanopass" style="height: 40px; object-fit: contain; mix-blend-mode: multiply;">
+  <img src="../nn%20logo%202.svg" alt="NN" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
+  <img src="../mastercard%20logo%202.png" alt="Mastercard" style="height: 35px; object-fit: contain; mix-blend-mode: multiply;">
+  <img src="../logo/vodafone.png" alt="Vodafone" style="height: 40px; object-fit: contain; mix-blend-mode: multiply;">
 </div>
 </div>
 </div>
